@@ -52,7 +52,7 @@ public class AviaSoulsTest {
     );
 
     @Test
-    public void ticketDefaultCompareTest() {
+    public void ticketPriceCompareTest() {
 
         AviaSouls manager = new AviaSouls();
 
@@ -84,28 +84,7 @@ public class AviaSoulsTest {
             manager.add(testItem5);
         }
         Ticket[] expected = {testItem1, testItem2, testItem4, testItem3, testItem5};
-        Ticket[] actual = manager.searchAndSortBy(from, to, timeComparator, defaultSort);
-
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    //--------------------------------------------------------------------------------------------
-    @Test
-    public void ticketTimeAndPriceCompareTest() {
-
-        AviaSouls manager = new AviaSouls();
-        TicketTimeComparator timeComparator = new TicketTimeComparator();
-
-        boolean defaultSort = true;
-        {
-            manager.add(testItem1);
-            manager.add(testItem2);
-            manager.add(testItem3);
-            manager.add(testItem4);
-            manager.add(testItem5);
-        }
-        Ticket[] expected = {testItem2, testItem1, testItem4, testItem3, testItem5};
-        Ticket[] actual = manager.searchAndSortBy(from, to, timeComparator, defaultSort);
+        Ticket[] actual = manager.searchAndSortBy(from, to, timeComparator);
 
         Assertions.assertArrayEquals(expected, actual);
     }

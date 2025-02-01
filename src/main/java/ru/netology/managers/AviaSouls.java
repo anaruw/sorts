@@ -52,9 +52,9 @@ public class AviaSouls {
         return result;
     }
 
-    public Ticket[] searchAndSortBy(String from, String to, Comparator<Ticket> comparator, boolean defaultSort) {
+    public Ticket[] searchAndSortBy(String from, String to, Comparator<Ticket> comparator) {
 
-        Ticket[] result = (defaultSort) ? searchAndSortBy(from, to) : search(from, to);
+        Ticket[] result = search(from, to);
 
         Arrays.sort(result, comparator);
         return result;
