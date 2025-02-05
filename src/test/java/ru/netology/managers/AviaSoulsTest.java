@@ -9,6 +9,7 @@ public class AviaSoulsTest {
 
     String from = "Москва";
     String to = "Казань";
+    String toForOneTicketSearch = "Краснодар";
     int timeFrom1 = 1;
     int timeFrom2 = 2;
     int timeFrom3 = 5;
@@ -45,7 +46,7 @@ public class AviaSoulsTest {
     );
     Ticket testItem5 = new Ticket(
             from,
-            to,
+            toForOneTicketSearch,
             3_300,
             timeFrom5,
             timeFrom5 + 2
@@ -63,7 +64,7 @@ public class AviaSoulsTest {
             manager.add(testItem4);
             manager.add(testItem5);
         }
-        Ticket[] expected = {testItem3, testItem2, testItem1, testItem4, testItem5};
+        Ticket[] expected = {testItem3, testItem2, testItem1, testItem4};
         Ticket[] actual = manager.searchAndSortBy(from, to);
 
         Assertions.assertArrayEquals(expected, actual);
@@ -75,7 +76,6 @@ public class AviaSoulsTest {
         AviaSouls manager = new AviaSouls();
         TicketTimeComparator timeComparator = new TicketTimeComparator();
 
-        boolean defaultSort = false;
         {
             manager.add(testItem1);
             manager.add(testItem2);
@@ -83,8 +83,44 @@ public class AviaSoulsTest {
             manager.add(testItem4);
             manager.add(testItem5);
         }
-        Ticket[] expected = {testItem1, testItem2, testItem4, testItem3, testItem5};
+        Ticket[] expected = {testItem1, testItem2, testItem4, testItem3};
         Ticket[] actual = manager.searchAndSortBy(from, to, timeComparator);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void ticketSearchOfOneTicketTest() {
+
+        AviaSouls manager = new AviaSouls();
+
+        {
+            manager.add(testItem1);
+            manager.add(testItem2);
+            manager.add(testItem3);
+            manager.add(testItem4);
+            manager.add(testItem5);
+        }
+        Ticket[] expected = {testItem5};
+        Ticket[] actual = manager.searchAndSortBy(from, toForOneTicketSearch);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void ticketSearchOfNoneTicketTest() {
+
+        AviaSouls manager = new AviaSouls();
+
+        {
+            manager.add(testItem1);
+            manager.add(testItem2);
+            manager.add(testItem3);
+            manager.add(testItem4);
+            manager.add(testItem5);
+        }
+        Ticket[] expected = {};
+        Ticket[] actual = manager.searchAndSortBy(from, from);
 
         Assertions.assertArrayEquals(expected, actual);
     }
